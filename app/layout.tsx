@@ -9,7 +9,7 @@ const geistSans = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Task Craft - A Trello Clone",
+  title: {default: "Task Craft - Boost Productivity", template: "%s | Task Craft"},
   description: "TaskCraft is a collaborative task management tool inspired by Trello. It enables users to create, manage, and track tasks through an intuitive board system, featuring drag-and-drop organization and real-time collaboration for enhanced productivity.",
   icons: {
     icon: "/logo.svg",

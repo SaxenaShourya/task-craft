@@ -1,7 +1,24 @@
-export default function Home() {
+import CTASection from "@/components/HomePage/CTA";
+import Features from "@/components/HomePage/Features";
+import HeroSection from "@/components/HomePage/HeroSection";
+import HowItWorks from "@/components/HomePage/HowItWorks";
+
+
+const HomePage = () => {
   return (
-   <div className="w-full h-screen flex items-center justify-center">
-    <h1 className="text-4xl font-bold">Task Craft</h1>
-   </div>
+    <div>
+      <HeroSection />
+      <div className="container mx-auto px-4 py-12">
+        <Features />
+        <CTASection />
+        <HowItWorks />
+      </div>
+    </div>
   );
-}
+};
+
+
+
+
+
+export default HomePage;
