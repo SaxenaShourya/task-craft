@@ -1,13 +1,16 @@
-import React from 'react';
+import React from "react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Github, Linkedin } from "lucide-react";
-import Logo from '@/components/logo';
+import Logo from "@/components/logo";
 
 const NavBar = () => (
   <nav className="bg-background border-b border-border sticky top-0 z-50">
     <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-      <Link href="/" className="text-2xl font-bold text-primary flex items-center">
+      <Link
+        href="/"
+        className="text-2xl font-bold text-primary flex items-center"
+      >
         <Logo className="mr-2" />
         <span>Task Craft</span>
       </Link>
@@ -19,17 +22,31 @@ const NavBar = () => (
           <Link href="#how-it-works">How It Works</Link>
         </Button>
         <Button variant="ghost" asChild>
-          <Link href="https://github.com/SaxenaShourya/task-craft" target="_blank" rel="noopener noreferrer">Github</Link>
+          <Link
+            href="https://github.com/SaxenaShourya/task-craft"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Github
+          </Link>
         </Button>
         <Button variant="ghost" asChild>
-          <Link href="https://www.linkedin.com/in/shouryasaxena/" target="_blank" rel="noopener noreferrer">About</Link>
+          <Link
+            href="https://www.linkedin.com/in/shouryasaxena/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            About
+          </Link>
         </Button>
       </div>
       <div className="flex items-center space-x-4">
         <Button variant="outline" asChild>
           <Link href="/login">Log In</Link>
         </Button>
-        <Button variant="default">Sign Up</Button>
+        <Button variant="default">
+          <Link href="/sign-up">Sign Up</Link>
+        </Button>
       </div>
     </div>
   </nav>
@@ -40,17 +57,39 @@ const Footer = () => (
     <div className="container mx-auto px-4">
       <div className="grid grid-cols-2 md:grid-cols-4 gap-12">
         {[
-          { title: "Product", links: ["Features", "Pricing", "Roadmap", "Integrations"] },
-          { title: "Company", links: ["About Us", "Careers", "Contact", "Press Kit"] },
-          { title: "Resources", links: ["Blog", "Help Center", "API Docs", "Community"] },
-          { title: "Legal", links: ["Privacy Policy", "Terms of Service", "Cookie Policy", "Security"] }
+          {
+            title: "Product",
+            links: ["Features", "Pricing", "Roadmap", "Integrations"],
+          },
+          {
+            title: "Company",
+            links: ["About Us", "Careers", "Contact", "Press Kit"],
+          },
+          {
+            title: "Resources",
+            links: ["Blog", "Help Center", "API Docs", "Community"],
+          },
+          {
+            title: "Legal",
+            links: [
+              "Privacy Policy",
+              "Terms of Service",
+              "Cookie Policy",
+              "Security",
+            ],
+          },
         ].map((section, index) => (
           <div key={index} className="space-y-4">
-            <h3 className="font-bold text-lg text-primary mb-6">{section.title}</h3>
+            <h3 className="font-bold text-lg text-primary mb-6">
+              {section.title}
+            </h3>
             <ul className="space-y-3">
               {section.links.map((link, linkIndex) => (
                 <li key={linkIndex}>
-                  <Link href="#" className="text-muted-foreground hover:text-primary transition-colors duration-300 text-sm hover:underline">
+                  <Link
+                    href="#"
+                    className="text-muted-foreground hover:text-primary transition-colors duration-300 text-sm hover:underline"
+                  >
                     {link}
                   </Link>
                 </li>
@@ -64,11 +103,21 @@ const Footer = () => (
           &copy; 2024 Task Craft. All rights reserved.
         </p>
         <div className="flex items-center space-x-6">
-          <Link href="https://github.com/SaxenaShourya/task-craft" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors duration-300">
+          <Link
+            href="https://github.com/SaxenaShourya/task-craft"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-muted-foreground hover:text-primary transition-colors duration-300"
+          >
             <Github className="h-6 w-6" />
           </Link>
-          <Link href="https://www.linkedin.com/in/shouryasaxena/" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors duration-300">
-          <Linkedin />
+          <Link
+            href="https://www.linkedin.com/in/shouryasaxena/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-muted-foreground hover:text-primary transition-colors duration-300"
+          >
+            <Linkedin />
           </Link>
         </div>
       </div>
@@ -92,11 +141,9 @@ const Footer = () => (
 const HomeLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <div className="min-h-screen bg-background">
-    <NavBar />
-      <main className="container mx-auto">
-        {children}
-      </main>
-    <Footer />
+      <NavBar />
+      <main className="container mx-auto">{children}</main>
+      <Footer />
     </div>
   );
 };
