@@ -1,9 +1,32 @@
-import React from "react";
+"use client";
+
+
+import React, { useEffect } from "react";
+import { useAuth } from "@clerk/nextjs";
+import { useRouter } from "next/navigation";
 import Logo from "@/components/logo";
 import Link from "next/link";
+import Spinner from "@/components/Spinner";
 import { FaLinkedin, FaGithub } from "react-icons/fa";
 
 const AuthLayout = ({ children }: { children: React.ReactNode }) => {
+  const { isSignedIn, isLoaded } = useAuth();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (isLoaded && isSignedIn) {
+      router.push('/dashboard');
+    }
+  }, [isSignedIn, isLoaded, router]);
+
+  if (!isLoaded) {
+    return <div className="flex justify-center items-center size-full"><Spinner variant="dark" /></div>; 
+  }
+
+  if (isSignedIn) {
+    return null;
+  }
+
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-br from-background to-background/90">
       <header className="p-4 sm:p-6 flex justify-between items-center">

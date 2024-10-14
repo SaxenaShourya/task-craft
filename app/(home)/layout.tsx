@@ -1,56 +1,71 @@
+"use client";
+
 import React from "react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Github, Linkedin } from "lucide-react";
 import Logo from "@/components/logo";
+import { useAuth } from "@clerk/nextjs";
 
-const NavBar = () => (
-  <nav className="bg-background border-b border-border sticky top-0 z-50">
-    <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-      <Link
-        href="/"
-        className="text-2xl font-bold text-primary flex items-center"
-      >
-        <Logo className="mr-2" />
-        <span>Task Craft</span>
-      </Link>
-      <div className="hidden md:flex space-x-6">
-        <Button variant="ghost" asChild>
-          <Link href="#features">Features</Link>
-        </Button>
-        <Button variant="ghost" asChild>
-          <Link href="#how-it-works">How It Works</Link>
-        </Button>
-        <Button variant="ghost" asChild>
-          <Link
-            href="https://github.com/SaxenaShourya/task-craft"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Github
-          </Link>
-        </Button>
-        <Button variant="ghost" asChild>
-          <Link
-            href="https://www.linkedin.com/in/shouryasaxena/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            About
-          </Link>
-        </Button>
+const NavBar = () => {
+  const { isSignedIn } = useAuth();
+
+  return (
+    <nav className="bg-background border-b border-border sticky top-0 z-50">
+      <div className="container mx-auto px-4 py-4 flex justify-between items-center">
+        <Link
+          href="/"
+          className="text-2xl font-bold text-primary flex items-center"
+        >
+          <Logo className="mr-2" />
+          <span>Task Craft</span>
+        </Link>
+        <div className="hidden md:flex space-x-6">
+          <Button variant="ghost" asChild>
+            <Link href="#features">Features</Link>
+          </Button>
+          <Button variant="ghost" asChild>
+            <Link href="#how-it-works">How It Works</Link>
+          </Button>
+          <Button variant="ghost" asChild>
+            <Link
+              href="https://github.com/SaxenaShourya/task-craft"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Github
+            </Link>
+          </Button>
+          <Button variant="ghost" asChild>
+            <Link
+              href="https://www.linkedin.com/in/shouryasaxena/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              About
+            </Link>
+          </Button>
+        </div>
+        <div className="flex items-center space-x-4">
+          {isSignedIn ? (
+            <Button variant="default" asChild>
+              <Link href="/dashboard">Dashboard</Link>
+            </Button>
+          ) : (
+            <>
+              <Button variant="outline" asChild>
+                <Link href="/login">Log In</Link>
+              </Button>
+              <Button variant="default" asChild>
+                <Link href="/sign-up">Sign Up</Link>
+              </Button>
+            </>
+          )}
+        </div>
       </div>
-      <div className="flex items-center space-x-4">
-        <Button variant="outline" asChild>
-          <Link href="/login">Log In</Link>
-        </Button>
-        <Button variant="default">
-          <Link href="/sign-up">Sign Up</Link>
-        </Button>
-      </div>
-    </div>
-  </nav>
-);
+    </nav>
+  );
+};
 
 const Footer = () => (
   <footer className="bg-gradient-to-b from-background to-background/90 border-t border-border py-12">
