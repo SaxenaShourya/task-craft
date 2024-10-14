@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { Dispatch, SetStateAction } from "react";
 import { useForm } from "react-hook-form";
@@ -34,7 +34,13 @@ const usernameSchema = z.object({
 
 type TUsernameSchema = z.infer<typeof usernameSchema>;
 
-const UsernameStep = ({ signUp, setStep }: { signUp: ReturnType<typeof useSignUp>["signUp"], setStep: Dispatch<SetStateAction<"start" | "username" | "verification">> }) => {
+const UsernameStep = ({
+  signUp,
+  setStep,
+}: {
+  signUp: ReturnType<typeof useSignUp>["signUp"];
+  setStep: Dispatch<SetStateAction<"start" | "username" | "verification">>;
+}) => {
   const { toast } = useToast();
 
   const {
@@ -55,15 +61,18 @@ const UsernameStep = ({ signUp, setStep }: { signUp: ReturnType<typeof useSignUp
         title: "Success",
         description: "Username set successfully. Please verify your email.",
       });
-    } catch (error) {
-      console.error("Error setting username:", error);
+    } catch (err) {
+      const error = err as { errors?: { message: string }[] }
+      console.log("Error setting username:", error?.errors?.[0]?.message);
       toast({
         title: "Username Setup Failed",
-        description: error instanceof Error ? error.message : "An unexpected error occurred. Please try again.",
+        description:
+          error?.errors?.[0]?.message ||
+          "An unexpected error occurred. Please try again.",
         variant: "destructive",
       });
     }
-  }
+  };
 
   return (
     <Card className="w-full sm:w-96">

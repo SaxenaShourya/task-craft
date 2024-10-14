@@ -30,7 +30,13 @@ const otpSchema = z.object({
 
 type TOTPFormSchema = z.infer<typeof otpSchema>;
 
-const VerificationStep = ({ signUp, setActive }: { signUp: ReturnType<typeof useSignUp>["signUp"], setActive: ReturnType<typeof useSignUp>["setActive"] }) => {
+const VerificationStep = ({
+  signUp,
+  setActive,
+}: {
+  signUp: ReturnType<typeof useSignUp>["signUp"];
+  setActive: ReturnType<typeof useSignUp>["setActive"];
+}) => {
   const { toast } = useToast();
   const router = useRouter();
 
@@ -51,7 +57,8 @@ const VerificationStep = ({ signUp, setActive }: { signUp: ReturnType<typeof use
       if (completeSignUp?.status !== "complete") {
         toast({
           title: "Error",
-          description: "There was a problem with the sign up process. Please try again.",
+          description:
+            "There was a problem with the sign up process. Please try again.",
           variant: "destructive",
         });
         return;
@@ -63,13 +70,16 @@ const VerificationStep = ({ signUp, setActive }: { signUp: ReturnType<typeof use
           title: "Success",
           description: "Your account has been verified successfully!",
         });
-        router.push('/dashboard');
+        router.push("/dashboard");
       }
-    } catch (error) {
-      console.error("Error verifying email:", error);
+    } catch (err) {
+      const error = err as { errors?: { message: string }[] }
+      console.log("Error verifying email:", error?.errors?.[0]?.message);
       toast({
         title: "Verification Failed",
-        description: error instanceof Error ? error.message : "An unexpected error occurred. Please try again.",
+        description:
+          error?.errors?.[0]?.message ||
+          "An unexpected error occurred. Please try again.",
         variant: "destructive",
       });
     }
@@ -83,9 +93,11 @@ const VerificationStep = ({ signUp, setActive }: { signUp: ReturnType<typeof use
           Verify Your Account
         </CardTitle>
         <CardDescription className="mt-2 text-sm text-muted-foreground">
-          We&apos;ve sent a 6-digit verification code to your email:{' '}
-          <span className="font-medium text-primary">{signUp?.emailAddress}</span>.
-          Enter the code below to complete your registration.
+          We&apos;ve sent a 6-digit verification code to your email:{" "}
+          <span className="font-medium text-primary">
+            {signUp?.emailAddress}
+          </span>
+          . Enter the code below to complete your registration.
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">

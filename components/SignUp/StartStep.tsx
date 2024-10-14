@@ -84,14 +84,12 @@ const StartStep = ({
         redirectUrlComplete: "/dashboard",
       });
       console.log('OAuth response:', response);
-    } catch (error) {
-      console.error(`Error during ${strategy} sign up:`, error);
+    } catch (err) {
+      const error = err as { errors?: { message: string }[] };
+      console.log(`Error during ${strategy} sign in:`, error?.errors?.[0]?.message);
       toast({
-        title: "Sign Up Failed",
-        description:
-          error instanceof Error
-            ? error.message
-            : "An unexpected error occurred. Please try again.",
+        title: "Sign In Failed",
+        description: error?.errors?.[0]?.message || "An unexpected error occurred. Please try again.",
         variant: "destructive",
       });
     } finally {
@@ -111,14 +109,13 @@ const StartStep = ({
         title: "Success",
         description: "Account created successfully. Please set your username.",
       });
-    } catch (error) {
-      console.error("Error during sign up:", error);
+    } catch (err) {
+      const error = err as { errors?: { message: string }[] };
+      console.log("Error during sign up:", error?.errors?.[0]?.message);
       toast({
         title: "Sign Up Failed",
         description:
-          error instanceof Error
-            ? error.message
-            : "An unexpected error occurred. Please try again.",
+        error?.errors?.[0]?.message || "An unexpected error occurred. Please try again.",
         variant: "destructive",
       });
     }
