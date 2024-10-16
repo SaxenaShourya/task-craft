@@ -53,7 +53,7 @@ const CreateOrgPage = () => {
           {!isLoaded ? (
             <Spinner variant="dark" />
           ) : (
-            <OrganizationList hidePersonal afterSelectOrganizationUrl='/dashboard' afterCreateOrganizationUrl='/dashboard' />
+            <OrganizationList hidePersonal afterSelectOrganizationUrl='/organization/:id' afterCreateOrganizationUrl='/organization/:id' />
           )}
         </div>
       </main>
