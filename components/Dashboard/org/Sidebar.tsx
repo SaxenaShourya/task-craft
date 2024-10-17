@@ -6,6 +6,7 @@ import { useOrganizationList, useOrganization } from "@clerk/nextjs";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import { OrganizationMembershipResource, SetActive } from "@clerk/types";
+import { usePathname } from 'next/navigation';
 
 import { Button } from "@/components/ui/button";
 import {
@@ -36,8 +37,9 @@ const SideBarItem = ({
   isActive,
   isExpanded,
   onExpand,
-  setActive
+  setActive,
 }: SideBarItemProps) => {
+  const pathname = usePathname();
   const routes = [
     {
       name: "Boards",
@@ -56,6 +58,7 @@ const SideBarItem = ({
     },
   ];
 
+
   return (
     <AccordionItem value={org.organization.id} className="border-none">
       <AccordionTrigger
@@ -63,7 +66,7 @@ const SideBarItem = ({
         className={cn(
           "flex items-center justify-between w-full p-2 rounded-sm hover:no-underline",
           isExpanded ? "bg-gray-200" : "hover:bg-gray-100",
-          isActive ? "text-blue-500" : "text-gray-700"
+          isActive ? "text-blue-500 bg-transparent" : "text-gray-700"
         )}
       >
         <div className="flex items-center gap-x-2">
@@ -92,7 +95,8 @@ const SideBarItem = ({
               className={cn(
                 "text-sm rounded-sm font-medium p-2 flex items-center gap-x-2",
                 isActive ? "text-blue-500" : "text-gray-700",
-                "hover:bg-gray-100"
+                "hover:bg-gray-100",
+                route.href === pathname && "font-semibold bg-gray-200",
               )}
             >
               {route.icon}
