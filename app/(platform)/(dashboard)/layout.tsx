@@ -17,9 +17,9 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   }
 
   return (
-    <div className="flex flex-col min-h-screen size-full">
+    <div className="h-screen flex flex-col">
       <Navbar />
-      <main className="flex-grow h-full">{children}</main>
+      <main className="flex-grow overflow-y-auto">{children}</main>
     </div>
   );
 };

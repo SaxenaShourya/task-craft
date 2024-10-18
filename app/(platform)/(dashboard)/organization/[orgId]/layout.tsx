@@ -1,6 +1,7 @@
 import OrgController from "@/components/Dashboard/org/OrgContoller";
-import { auth } from "@clerk/nextjs/server";
+import { auth, clerkClient } from "@clerk/nextjs/server";
 import { Metadata } from "next";
+import { notFound } from "next/navigation";
 
 export async function generateMetadata(): Promise<Metadata> {
   const { orgSlug } = auth();
@@ -16,7 +17,18 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-const OrganizationLayout = ({ children }: { children: React.ReactNode }) => {
+const OrganizationLayout = async ({ children, params }: { children: React.ReactNode, params: { orgId: string } }) => {
+  const { orgId } = params;
+  
+  try {
+    const org = await clerkClient.organizations.getOrganization({ organizationId: orgId });
+    if (!org) {
+      notFound();
+    }
+  } catch (error) {
+    notFound();
+  }
+
   return (
     <div className="flex flex-col size-full">
       <OrgController />
