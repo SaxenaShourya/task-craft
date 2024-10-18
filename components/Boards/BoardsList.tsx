@@ -7,7 +7,7 @@ import CreateCard from "./CreateCard";
 import DialogForm from "./DialogForm";
 import Boards from "./Boards";
 
-import { getBoards } from "@/actions/createBoard/action";
+import { getBoards } from "@/actions/Boards/createBoard/action";
 import Spinner from "@/components/Spinner";
 import { Board } from "@prisma/client";
 import { Button } from "@/components/ui/button";

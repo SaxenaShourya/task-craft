@@ -1,8 +1,8 @@
 import React from 'react'
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import { updateBoard } from '@/actions/editBoard/action';
-import { UpdateBoardSchema, InputType } from '@/actions/editBoard/types';
+import { updateBoard } from '@/actions/Boards/editBoard/action';
+import { UpdateBoardSchema, InputType } from '@/actions/Boards/editBoard/types';
 import { useRouter } from 'next/navigation';
 
 import { useAction } from '@/hooks/use-action';

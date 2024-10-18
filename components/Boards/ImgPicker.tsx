@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import unsplashApi from "@/lib/unsplash";
 import Image from "next/image";
 import Link from "next/link";
-import { InputType } from "@/actions/createBoard/types";
+import { InputType } from "@/actions/Boards/createBoard/types";
 
 import { Check } from "lucide-react";
 import Spinner from "../Spinner";
@@ -10,8 +10,8 @@ import Spinner from "../Spinner";
 import { defaultImages } from "@/lib/defaultImages";
 
 interface ImgPickerProps {
-  onChange: (value: InputType['image']) => void;
-  value: InputType['image'];
+  onChange: (value: InputType["image"]) => void;
+  value: InputType["image"];
   error?: string;
 }
 
@@ -61,7 +61,6 @@ const ImgPicker: React.FC<ImgPickerProps> = ({ onChange, value, error }) => {
     fetchImages();
   }, []);
 
-
   const handleImageSelect = (image: UnsplashImage) => {
     onChange({
       id: image.id,
@@ -75,7 +74,6 @@ const ImgPicker: React.FC<ImgPickerProps> = ({ onChange, value, error }) => {
       },
     });
   };
-
 
   if (isLoading) {
     return (
@@ -115,12 +113,8 @@ const ImgPicker: React.FC<ImgPickerProps> = ({ onChange, value, error }) => {
           </div>
         ))}
       </div>
-      {fetchError && (
-        <p className="text-red-500 text-sm">{fetchError}</p>
-      )}
-      {error && (
-        <p className="text-red-500 text-sm">{error}</p>
-      )}
+      {fetchError && <p className="text-red-500 text-sm">{fetchError}</p>}
+      {error && <p className="text-red-500 text-sm">{error}</p>}
       {value.id && (
         <div className="text-xs text-neutral-500 text-center">
           Photo by{" "}

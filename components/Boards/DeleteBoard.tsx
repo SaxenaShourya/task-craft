@@ -1,5 +1,5 @@
 import { useRouter } from "next/navigation";
-import { deleteBoard } from "@/actions/deleteBoard/action";
+import { deleteBoard } from "@/actions/Boards/deleteBoard/action";
 import { useToast } from "@/hooks/use-toast";
 import { useAction } from "@/hooks/use-action";
 

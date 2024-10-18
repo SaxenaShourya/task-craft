@@ -2,10 +2,13 @@ import { useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useAction } from "@/hooks/use-action";
-import { createBoard } from "@/actions/createBoard/action";
+import { createBoard } from "@/actions/Boards/createBoard/action";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/hooks/use-toast";
-import { CreateBoardSchema, InputType } from "@/actions/createBoard/types";
+import {
+  CreateBoardSchema,
+  InputType,
+} from "@/actions/Boards/createBoard/types";
 
 import {
   Dialog,
@@ -55,7 +58,11 @@ const DialogForm: React.FC<DialogFormProps> = ({ isOpen, onClose }) => {
     },
   });
 
-  const { execute, fieldErrors, isLoading: isSubmitting } = useAction(createBoard, {
+  const {
+    execute,
+    fieldErrors,
+    isLoading: isSubmitting,
+  } = useAction(createBoard, {
     onSuccess: (data) => {
       toast({
         title: data.success,
@@ -79,7 +86,7 @@ const DialogForm: React.FC<DialogFormProps> = ({ isOpen, onClose }) => {
     execute(data);
   };
 
-   // Reset form when modal closes
+  // Reset form when modal closes
   useEffect(() => {
     if (!isOpen) {
       reset();
