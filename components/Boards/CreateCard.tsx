@@ -26,7 +26,7 @@ const CreateCard: React.FC<CreateCardProps> = ({ onClick, remainingBoards }) => 
         Create new board
       </p>
 
-      <p className="text-xs text-neutral-500 mb-4">5 remaining</p>
+      <p className="text-xs text-neutral-500 mb-4">{remainingBoards} remaining</p>
 
       <TooltipProvider>
         <Tooltip>
@@ -40,7 +40,7 @@ const CreateCard: React.FC<CreateCardProps> = ({ onClick, remainingBoards }) => 
             className="bg-white p-4 rounded-md shadow-lg max-w-xs"
           >
             <p className="text-sm text-neutral-700 leading-relaxed">
-              You can create up to 5 boards on the free trial. <Link href="https://www.linkedin.com/in/your-linkedin-profile" target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">Contact me on LinkedIn</Link> for more details.
+              You can create up to 4 boards on the free trial. <Link href="https://www.linkedin.com/in/your-linkedin-profile" target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">Contact me on LinkedIn</Link> for more details.
             </p>
           </TooltipContent>
         </Tooltip>
