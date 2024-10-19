@@ -21,7 +21,6 @@ const updateBoardHandler = async (data: InputType) => {
 
   const { id, title } = data;
 
-  
   const validatedFields = UpdateBoardSchema.safeParse({ id, title });
   if (!validatedFields.success) {
     return {
@@ -30,13 +29,36 @@ const updateBoardHandler = async (data: InputType) => {
   }
 
   try {
-    const board = await db.board.update({
+    const existingBoard = await db.board.findUnique({
+      where: { id, orgId },
+    });
+
+    if (!existingBoard) {
+      return {
+        error: {
+          title: "Board not found",
+          description:
+            "The specified board does not exist or you don't have access to it.",
+        },
+      };
+    }
+
+    if (existingBoard.title === title) {
+      return {
+        error: {
+          title: "No changes detected",
+          description: "The new title is the same as the current title.",
+        },
+      };
+    }
+
+    const updatedBoard = await db.board.update({
       where: { id, orgId },
       data: { title },
     });
 
     revalidatePath(`/board/${id}`);
-    return { data: board };
+    return { data: updatedBoard };
   } catch (error) {
     console.error("Error updating board:", error);
     return {

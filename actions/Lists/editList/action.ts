@@ -28,13 +28,35 @@ const updateListHandler = async (data: InputType) => {
   }
 
   try {
-    const list = await db.list.update({
+    const existingList = await db.list.findUnique({
+      where: { id, board: { orgId } },
+    });
+
+    if (!existingList) {
+      return {
+        error: {
+          title: "List not found",
+          description: "The specified list does not exist or you don't have access to it.",
+        },
+      };
+    }
+
+    if (existingList.title === title) {
+      return {
+        error: {
+          title: "No changes detected",
+          description: "The new title is the same as the current title.",
+        },
+      };
+    }
+
+    const updatedList = await db.list.update({
       where: { id, board: { orgId } },
       data: { title },
     });
 
     revalidatePath(`/board/${boardId}`);
-    return { data: list };
+    return { data: updatedList };
   } catch (error) {
     console.error("Error updating list:", error);
     return {
