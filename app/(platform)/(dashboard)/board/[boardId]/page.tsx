@@ -30,7 +30,7 @@ const BoardPage = async ({params}: {params: {boardId: string}}) => {
 
   return (
     <div>
-      <ListContainer data={lists} boardId={params.boardId}/>
+      <ListContainer data={lists}/>
     </div>
   )
 }

@@ -56,12 +56,18 @@ const BoardLayout = async ({
     notFound();
   }
 
+  const listCount = await db.list.count({
+    where: {
+      boardId: params.boardId,
+    },
+  });
+
   return (
     <div 
     className="flex flex-col h-full w-full bg-cover bg-center bg-no-repeat" 
     style={{ backgroundImage: `url(${board.imageFullUrl})` }}
   >
-    <BoardNavbar boardTitle={board.title} boardId={board.id} orgId={orgId} />
+    <BoardNavbar boardTitle={board.title} boardId={board.id} orgId={orgId} listCount={listCount} />
     <section>{children}</section>
   </div>
   );

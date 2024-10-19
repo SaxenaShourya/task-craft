@@ -42,6 +42,15 @@ const createListHandler = async (data: InputType) => {
       };
     }
 
+    if (board.lists.length >= 4) {
+      return {
+        error: {
+          title: "List limit reached",
+          description: "You can only create a maximum of 4 lists per board.",
+        },
+      };
+    }
+
     const newOrder = board.lists[0]?.order + 1 || 1;
 
     const list = await db.list.create({
