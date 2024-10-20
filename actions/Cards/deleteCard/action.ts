@@ -5,6 +5,8 @@ import { revalidatePath } from "next/cache";
 import { db } from "@/lib/db";
 import { createSafeAction } from "@/lib/create-safe-action";
 import { InputType, DeleteCardSchema } from "./types";
+import { createAuditLog } from "@/lib/create-audit-log";
+import { ACTION, ENTITY_TYPE } from "@prisma/client";
 
 const deleteCardHandler = async (data: InputType) => {
   const { userId, orgId } = auth();
@@ -36,6 +38,13 @@ const deleteCardHandler = async (data: InputType) => {
 
     await db.card.delete({
       where: { id },
+    });
+
+    await createAuditLog({
+      entityId: cardToDelete.id,
+      entityType: ENTITY_TYPE.CARD,
+      entityTitle: cardToDelete.title,
+      action: ACTION.DELETE,
     });
 
     revalidatePath(`/board/${boardId}`);

@@ -21,7 +21,7 @@ const OrganizationLayout = async ({ children, params }: { children: React.ReactN
   const { orgId } = params;
   
   try {
-    const org = await clerkClient.organizations.getOrganization({ organizationId: orgId });
+    const org = await clerkClient().organizations.getOrganization({ organizationId: orgId });
     if (!org) {
       notFound();
     }

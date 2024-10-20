@@ -5,6 +5,8 @@ import { revalidatePath } from "next/cache";
 import { db } from "@/lib/db";
 import { createSafeAction } from "@/lib/create-safe-action";
 import { InputType, UpdateBoardSchema } from "./types";
+import { createAuditLog } from "@/lib/create-audit-log";
+import { ACTION, ENTITY_TYPE } from "@prisma/client";
 
 const updateBoardHandler = async (data: InputType) => {
   const { userId, orgId } = auth();
@@ -55,6 +57,13 @@ const updateBoardHandler = async (data: InputType) => {
     const updatedBoard = await db.board.update({
       where: { id, orgId },
       data: { title },
+    });
+
+    await createAuditLog({
+      entityId: updatedBoard.id,
+      entityType: ENTITY_TYPE.BOARD,
+      entityTitle: updatedBoard.title,
+      action: ACTION.UPDATE,
     });
 
     revalidatePath(`/board/${id}`);

@@ -5,6 +5,8 @@ import { revalidatePath } from "next/cache";
 import { db } from "@/lib/db";
 import { createSafeAction } from "@/lib/create-safe-action";
 import { InputType, CopyCardSchema } from "./types";
+import { createAuditLog } from "@/lib/create-audit-log";
+import { ACTION, ENTITY_TYPE } from "@prisma/client";
 
 const copyCardHandler = async (data: InputType) => {
   const { userId, orgId } = auth();
@@ -62,6 +64,13 @@ const copyCardHandler = async (data: InputType) => {
         order: newOrder,
         listId: cardToCopy.listId,
       },
+    });
+
+    await createAuditLog({
+      entityId: copiedCard.id,
+      entityType: ENTITY_TYPE.CARD,
+      entityTitle: copiedCard.title,
+      action: ACTION.CREATE,
     });
 
     revalidatePath(`/board/${boardId}`);

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Card } from "@prisma/client";
+import { ACTION, Card, ENTITY_TYPE } from "@prisma/client";
 import { useForm } from "react-hook-form";
 import { useAction } from "@/hooks/use-action";
 import { updateCard } from "@/actions/Cards/editCard/action";
@@ -7,6 +7,7 @@ import { useParams } from "next/navigation";
 import { useToast } from "@/hooks/use-toast";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { UpdateCardSchema, InputType } from "@/actions/Cards/editCard/types";
+import { getRecentCardActivity } from "@/actions/Activity/getCardActivity/action";
 
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
@@ -17,6 +18,7 @@ import { Edit2, Save, X, AlignLeft, Clock, List } from "lucide-react";
 import Dialog from "../Dialog";
 import CopyCard from "./CopyCard";
 import DeleteCard from "./DeleteCard";
+import CardActivity from "./CardActivty";
 import FormError from "../FormError";
 import Spinner from "../Spinner";
 
@@ -28,8 +30,22 @@ interface CardDialogProps {
   cardsCount: number;
 }
 
-const CardDialog = ({ card, isOpen, setIsOpen, listName, cardsCount }: CardDialogProps) => {
+const CardDialog = ({
+  card,
+  isOpen,
+  setIsOpen,
+  listName,
+  cardsCount,
+}: CardDialogProps) => {
   const [isEditing, setIsEditing] = useState(false);
+  const [recentActivity, setRecentActivity] = useState<{
+    action: ACTION;
+    createdAt: Date;
+    userName: string;
+    userImage: string;
+    entityTitle: string;
+    entityType: ENTITY_TYPE;
+  } | null>(null);
   const params = useParams();
   const { toast } = useToast();
 
@@ -80,6 +96,7 @@ const CardDialog = ({ card, isOpen, setIsOpen, listName, cardsCount }: CardDialo
         description: card.description || "",
         boardId: params.boardId as string,
       });
+      getRecentCardActivity(card.id).then(setRecentActivity);
     }
   }, [isOpen, card, params.boardId, reset]);
 
@@ -103,7 +120,7 @@ const CardDialog = ({ card, isOpen, setIsOpen, listName, cardsCount }: CardDialo
       triggerContent={triggerContent}
       title={isEditing ? "Edit Card" : card.title}
     >
-     <form onSubmit={handleSubmit(onSubmit)} className="mt-4 space-y-6">
+      <form onSubmit={handleSubmit(onSubmit)} className="mt-4 space-y-3">
         {isEditing ? (
           <div className="space-y-4">
             <div>
@@ -139,7 +156,7 @@ const CardDialog = ({ card, isOpen, setIsOpen, listName, cardsCount }: CardDialo
             </div>
           </div>
         ) : (
-          <div className="space-y-2">
+          <div className="space-y-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center text-sm text-muted-foreground">
                 <Clock className="w-4 h-4 mr-2" />
@@ -195,7 +212,7 @@ const CardDialog = ({ card, isOpen, setIsOpen, listName, cardsCount }: CardDialo
               type="button"
               onClick={() => setIsEditing(true)}
               variant="outline"
-              className="text-primary hover:bg-primary/10 focus:ring-0 focus-visible:ring-0"
+              className="text-primary hover:bg-primary/10 focus:ring-0 focus-visible:ring-0 focus-visible:ring-offset-0"
             >
               <Edit2 className="h-4 w-4 mr-2" />
               Edit
@@ -210,6 +227,12 @@ const CardDialog = ({ card, isOpen, setIsOpen, listName, cardsCount }: CardDialo
           )}
         </div>
       </form>
+      {recentActivity && !isEditing && (
+        <div className="space-y-4 mt-4">
+          <Separator orientation="horizontal" />
+          <CardActivity recentActivity={recentActivity} />
+        </div>
+      )}
     </Dialog>
   );
 };

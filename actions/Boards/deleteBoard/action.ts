@@ -5,6 +5,8 @@ import { revalidatePath } from "next/cache";
 import { db } from "@/lib/db";
 import { createSafeAction } from "@/lib/create-safe-action";
 import { InputType, DeleteBoardSchema } from "./types";
+import { createAuditLog } from "@/lib/create-audit-log";
+import { ACTION, ENTITY_TYPE } from "@prisma/client";
 
 const deleteBoardHandler = async (data: InputType) => {
   const { userId, orgId } = auth();
@@ -28,8 +30,28 @@ const deleteBoardHandler = async (data: InputType) => {
   }
 
   try {
+    const board = await db.board.findUnique({
+      where: { id, orgId },
+    });
+
+    if (!board) {
+      return {
+        error: {
+          title: "Board not found",
+          description: "The specified board does not exist or you don't have access to it.",
+        },
+      };
+    }
+
     await db.board.delete({
       where: { id, orgId },
+    });
+
+    await createAuditLog({
+      entityId: board.id,
+      entityType: ENTITY_TYPE.BOARD,
+      entityTitle: board.title,
+      action: ACTION.DELETE,
     });
 
     revalidatePath(`/organization/${orgId}`);

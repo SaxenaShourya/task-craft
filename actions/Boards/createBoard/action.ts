@@ -5,6 +5,8 @@ import { revalidatePath } from "next/cache";
 import { db } from "@/lib/db";
 import { CreateBoardSchema, InputType } from "./types";
 import { createSafeAction } from "@/lib/create-safe-action";
+import { createAuditLog } from "@/lib/create-audit-log";
+import { ACTION, ENTITY_TYPE } from "@prisma/client";
 
 const handler = async (data: InputType) => {
   const { userId, orgId } = auth();
@@ -41,7 +43,7 @@ const handler = async (data: InputType) => {
       };
     }
 
-    await db.board.create({
+    const board = await db.board.create({
       data: {
         title,
         orgId,
@@ -51,6 +53,13 @@ const handler = async (data: InputType) => {
         imageAuthor: image.author,
         imageLinkHtml: image.links.html,
       },
+    });
+
+    await createAuditLog({
+      entityId: board.id,
+      entityType: ENTITY_TYPE.BOARD,
+      entityTitle: board.title,
+      action: ACTION.CREATE,
     });
   } catch (error) {
     return {
