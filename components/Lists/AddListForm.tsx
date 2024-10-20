@@ -82,7 +82,7 @@ const AddListForm = ({ listCount }: { listCount: number }) => {
                   <p>
                     You can only create up to 4 lists on the free trial.{" "}
                     <Link
-                      href="https://www.linkedin.com/in/your-linkedin-profile"
+                      href="https://www.linkedin.com/in/shouryasaxena"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-blue-500 hover:underline"

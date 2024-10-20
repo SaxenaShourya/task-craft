@@ -8,7 +8,7 @@ import { DropdownMenuItem } from "@/components/ui/dropdown-menu";
 import { Copy } from "lucide-react";
 import Spinner from "../Spinner";
 
-const CopyList = ({ listId }: { listId: string }) => {
+const CopyList = ({ listId, listCount }: { listId: string, listCount: number }) => {
   const params = useParams();
   const { toast } = useToast();
 
@@ -38,7 +38,7 @@ const CopyList = ({ listId }: { listId: string }) => {
     <DropdownMenuItem
       className="flex items-center py-1.5 text-sm hover:bg-accent hover:text-accent-foreground cursor-pointer"
       onClick={handleCopy}
-      disabled={isLoading}
+      disabled={isLoading || listCount >= 4}
     >
       {isLoading ? (
         <Spinner className="mr-2" variant="dark" />

@@ -25,7 +25,7 @@ const BoardNavbar = ({
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="w-full h-14 z-[40] flex items-center px-6">
+    <div className="w-full h-14 z-[40] flex items-center px-6 py-2">
       <Dialog
         isOpen={isOpen}
         setIsOpen={setIsOpen}

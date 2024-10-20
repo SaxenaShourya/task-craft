@@ -20,11 +20,13 @@ const ListHeader = ({
   boardId,
   title,
   onTitleChange,
+  listCount,
 }: {
   id: string;
   boardId: string;
   title: string;
   onTitleChange: (newTitle: string) => void;
+  listCount: number;
 }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editedTitle, setEditedTitle] = useState(title);
@@ -63,7 +65,7 @@ const ListHeader = ({
   };
 
   return (
-    <div className="flex flex-col p-2 bg-card rounded-md">
+    <div className="flex flex-col p-2 bg-card rounded-t-md">
       <div className="flex items-center justify-between">
         {isEditing ? (
           <div className="flex items-center space-x-2">
@@ -105,7 +107,7 @@ const ListHeader = ({
             <Edit2 className="text-foreground/90 mr-2" />
             <span className="text-foreground">Edit List Title</span>
           </DropdownMenuItem>
-          <CopyList listId={id} />
+          <CopyList listId={id} listCount={listCount} />
           <DeleteList listId={id} />
         </Dropdown>
       </div>
@@ -116,7 +118,7 @@ const ListHeader = ({
   );
 };
 
-const ListItem = ({ data }: { data: { cards: Card[] } & List }) => {
+const ListItem = ({ data, listCount }: { data: { cards: Card[] } & List, listCount: number }) => {
   const [listTitle, setListTitle] = useState(data.title);
 
   const handleTitleChange = (newTitle: string) => {
@@ -124,12 +126,13 @@ const ListItem = ({ data }: { data: { cards: Card[] } & List }) => {
   };
 
   return (
-    <div className="rounded-md w-full sm:w-72 md:w-80 lg:w-96 bg-card">
+    <div className="rounded-md w-full bg-card">
       <ListHeader
         id={data.id}
         boardId={data.boardId}
         title={listTitle}
         onTitleChange={handleTitleChange}
+        listCount={listCount}
       />
     </div>
   );

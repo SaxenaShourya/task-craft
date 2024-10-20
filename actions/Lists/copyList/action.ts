@@ -35,6 +35,19 @@ const copyListHandler = async (data: InputType) => {
       };
     }
 
+    const existingListsCount = await db.list.count({
+      where: { boardId },
+    });
+
+    if (existingListsCount >= 5) {
+      return {
+        error: {
+          title: "List limit reached",
+          description: "You can only create a maximum of 4 lists per board.",
+        },
+      };
+    }
+
     const lastList = await db.list.findFirst({
       where: { boardId },
       orderBy: { order: "desc" },

@@ -13,7 +13,7 @@ export async function generateMetadata({
   const { orgId, orgSlug } = auth();
 
   if (!orgId) {
-    return redirect('/create-org');
+    return redirect("/create-org");
   }
 
   const board = await db.board.findUnique({
@@ -63,13 +63,18 @@ const BoardLayout = async ({
   });
 
   return (
-    <div 
-    className="flex flex-col h-full w-full bg-cover bg-center bg-no-repeat" 
-    style={{ backgroundImage: `url(${board.imageFullUrl})` }}
-  >
-    <BoardNavbar boardTitle={board.title} boardId={board.id} orgId={orgId} listCount={listCount} />
-    <section>{children}</section>
-  </div>
+    <div
+      className="relative flex flex-col min-h-full w-full bg-cover bg-center bg-no-repeat"
+      style={{ backgroundImage: `url(${board.imageFullUrl})` }}
+    >
+      <BoardNavbar
+        boardTitle={board.title}
+        boardId={board.id}
+        orgId={orgId}
+        listCount={listCount}
+      />
+      <div className="flex-grow overflow-y-auto">{children}</div>
+    </div>
   );
 };
 
