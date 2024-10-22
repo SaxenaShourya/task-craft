@@ -6,7 +6,7 @@ import { useOrganizationList, useOrganization } from "@clerk/nextjs";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import { OrganizationMembershipResource, SetActive } from "@clerk/types";
-import { usePathname } from 'next/navigation';
+import { usePathname } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -16,7 +16,7 @@ import {
   AccordionContent,
 } from "@/components/ui/accordion";
 import { Separator } from "@/components/ui/separator";
-import { Plus, Activity, Settings, Layout } from "lucide-react";
+import { Plus, Activity, Settings, Layout, Github } from "lucide-react";
 
 import Spinner from "@/components/Spinner";
 
@@ -29,7 +29,7 @@ type SideBarItemProps = {
   isActive: boolean;
   isExpanded: boolean;
   onExpand: (id: string) => void;
-  setActive: SetActive
+  setActive: SetActive;
 };
 
 const SideBarItem = ({
@@ -58,7 +58,6 @@ const SideBarItem = ({
     },
   ];
 
-
   return (
     <AccordionItem value={org.organization.id} className="border-none">
       <AccordionTrigger
@@ -81,7 +80,7 @@ const SideBarItem = ({
           <span
             className={cn(
               "text-sm font-medium",
-              isActive ? "text-blue-500" : "text-gray-700",
+              isActive ? "text-blue-500" : "text-gray-700"
             )}
           >
             {org.organization.name}
@@ -90,13 +89,17 @@ const SideBarItem = ({
       </AccordionTrigger>
       <AccordionContent>
         {routes.map((route) => (
-          <Link href={route.href} key={route.href} onClick={()=>setActive({ organization: org.organization.id })}>
+          <Link
+            href={route.href}
+            key={route.href}
+            onClick={() => setActive({ organization: org.organization.id })}
+          >
             <div
               className={cn(
                 "text-sm rounded-sm font-medium p-2 flex items-center gap-x-2",
                 isActive ? "text-blue-500" : "text-gray-700",
                 "hover:bg-gray-100",
-                route.href === pathname && "font-semibold bg-gray-200",
+                route.href === pathname && "font-semibold bg-gray-200"
               )}
             >
               {route.icon}
@@ -110,14 +113,18 @@ const SideBarItem = ({
 };
 
 const Sidebar = ({ storageKey = "tc-sidebar-state" }: SidebarProps) => {
-  const [expanded, setExpanded] = useLocalStorage<Record<string, any>>(
+  const [expanded, setExpanded] = useLocalStorage<Record<string, boolean>>(
     storageKey,
     {}
   );
-  
+
   const { organization: activeOrganization, isLoaded: isActiveOrgLoaded } =
     useOrganization();
-  const { isLoaded: isOrgsListLoaded, userMemberships, setActive } = useOrganizationList({
+  const {
+    isLoaded: isOrgsListLoaded,
+    userMemberships,
+    setActive,
+  } = useOrganizationList({
     userMemberships: {
       infinite: true,
     },
@@ -174,6 +181,17 @@ const Sidebar = ({ storageKey = "tc-sidebar-state" }: SidebarProps) => {
             setActive={setActive}
           />
         ))}
+        <div className="mt-auto pt-4">
+          <Link
+            href="https://github.com/SaxenaShourya/task-craft"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-x-2 text-sm rounded-sm font-medium p-2 text-gray-700 hover:bg-gray-100"
+          >
+            <Github className="w-4 h-4 mr-2" />
+            Star on GitHub
+          </Link>
+        </div>
       </Accordion>
     </>
   );
