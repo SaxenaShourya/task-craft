@@ -26,6 +26,7 @@ const OrganizationLayout = async ({ children, params }: { children: React.ReactN
       notFound();
     }
   } catch (error) {
+    console.error(error);
     notFound();
   }
 
