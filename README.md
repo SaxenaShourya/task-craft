@@ -1,36 +1,165 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+<p align="center">
+  <img src="public/logo.svg" width="100" />
+</p>
 
-## Getting Started
+<h1 align="center">TaskCraft 🚀 - Elevate Your Task Management</h1>
 
-First, run the development server:
+<p align="center">
+  <img src="public/homepage.png" alt="TaskCraft Dashboard" width="100%" />
+</p>
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+<h2 align="center">
+  <a href="https://taskcraft-dev.vercel.app">🌟 Experience TaskCraft Live! 🌟</a>
+</h2>
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+<hr/>
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Welcome to TaskCraft, your ultimate collaborative task management solution! 🎉 Inspired by Trello, TaskCraft empowers teams to create, manage, and track tasks with unparalleled ease. Our intuitive board system, featuring drag-and-drop organization, dynamic lists, and interactive cards, takes your productivity to new heights! 📈
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+<hr/>
 
-## Learn More
+## 📚 Table of Contents
 
-To learn more about Next.js, take a look at the following resources:
+- [✨ Features](#-features)
+- [🛠️ Installation](#️-installation)
+- [🚀 Getting Started](#-getting-started)
+- [💡 Experience](#-experience)
+- [🔧 Technologies Used](#-technologies-used)
+- [📄 License](#-license)
+- [📞 Contact & Support](#-contact--support)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+<hr/>
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## ✨ Features
 
-## Deploy on Vercel
+Discover the power-packed features of TaskCraft:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- 🗂️ **Board Creation & Management**: Organize projects with customizable boards
+- 📝 **Card Operations**: Create, edit, copy, and delete tasks effortlessly
+- 🔄 **Drag & Drop**: Intuitive reordering of lists and cards
+- 📊 **Audit Logs**: Comprehensive activity tracking for enhanced accountability
+- 📱 **Responsive Design**: Optimal experience across all devices
+- 🔐 **Secure Authentication**: Clerk-powered login with OAuth support
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+<hr/>
+
+## 🛠️ Installation
+
+Get TaskCraft up and running on your machine:
+
+### Prerequisites
+
+Ensure you have the following installed:
+- 📦 Node.js and npm
+- 🐘 PostgreSQL (NeonDB or local setup)
+- 🐙 Git
+
+### Step-by-Step Setup
+
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/yourusername/taskcraft.git
+   ```
+
+2. **Navigate to the project directory:**
+   ```bash
+   cd taskcraft
+   ```
+
+3. **Set up environment variables:**
+   Create a `.env` file in the root directory and add the following variables:
+   ```
+   NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=your_clerk_publishable_key
+   CLERK_SECRET_KEY=your_clerk_secret_key
+   NEXT_PUBLIC_CLERK_SIGN_IN_URL=/login
+   NEXT_PUBLIC_CLERK_SIGN_UP_URL=/sign-up
+   NEXT_PUBLIC_UNSPLASH_ACCESS_KEY=your_unsplash_access_key
+   DATABASE_URL="your_neondb_connection_string"
+   ```
+   Replace the placeholder values with your actual credentials.
+
+4. **Install dependencies:**
+   ```bash
+   npm install
+   ```
+
+5. **Set up the database:**
+   ```bash
+   npx prisma generate
+   npx prisma db push
+   ```
+
+6. **Start the development server:**
+   ```bash
+   npm run dev
+   ```
+
+Your TaskCraft application should now be running on `http://localhost:3000`.
+
+<hr/>
+
+## 🚀 Getting Started
+
+After setup, launch your browser and navigate to:
+
+- Frontend: `http://localhost:3000`
+- Backend API: `http://localhost:3001`
+
+Start by creating your first board and exploring the intuitive interface!
+
+<hr/>
+
+## 💡 Experience
+
+During the development of TaskCraft, I gained valuable experience in several key areas:
+
+- **Full-Stack Development** 💻: Built a robust backend using Prisma and NeonDB (PostgreSQL) and a dynamic frontend with React.js.
+- **Next.js Framework** ⚛️: Leveraged the power of Next.js for server-side rendering and dynamic routing.
+- **Prisma ORM** 🗄️: Used Prisma to efficiently manage database schemas and operations with PostgreSQL.
+- **Collaboration** 👫: Integrated real-time collaboration features for enhanced productivity.
+- **Responsive Design** 📱: Created a mobile-first design for accessibility across all devices.
+- **Authentication with Clerk** 🔑: Implemented secure user authentication and authorization using Clerk with OAuth integration for Google and GitHub.
+- **State Management** 🔄: Utilized React Query for efficient state management and data fetching.
+- **UI/UX Design** 🎨: Focused on creating an intuitive and visually appealing user interface.
+- **Performance Optimization** ⚡: Implemented techniques to ensure fast load times and smooth user experience.
+- **API Development** 🔌: Designed and implemented RESTful APIs for seamless frontend-backend communication.
+- **Version Control** 📚: Practiced Git workflows for efficient collaboration and code management.
+
+This project helped me improve my understanding of full-stack development and real-world problem-solving techniques in task management systems.
+
+<hr/>
+
+## 🔧 Technologies Used
+
+- ⚛️ React.js (JavaScript library for building user interfaces)
+- 🔼 Next.js (React framework for production-grade applications)
+- 🗄️ Prisma (Next-generation ORM for Node.js and TypeScript)
+- 🐘 PostgreSQL (Powerful, open-source relational database system)
+- 🌟 NeonDB (Serverless PostgreSQL with a generous free tier)
+- 🔐 Clerk (Complete user management and authentication solution)
+- 🎨 Tailwind CSS (Utility-first CSS framework for rapid UI development)
+- 📝 React Hook Form (Efficient, flexible and extensible forms with easy-to-use validation)
+- 🛡️ Zod (TypeScript-first schema validation with static type inference)
+- ⚡ Server Actions (Next.js feature for handling form submissions and data mutations)
+- 🚀 Vercel (Platform for deploying and scaling Next.js applications)
+- 🐙 Git (Distributed version control system)
+
+<hr/>
+
+## 📄 License
+
+TaskCraft is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
+
+<hr/>
+
+## 📞 Contact & Support
+
+- For feedback and support, email us at saxenashourya000@gmail.com 📧
+- Follow me on [LinkedIn](https://www.linkedin.com/in/shouryasaxena) for updates 🔗
+- Check out my [GitHub](https://github.com/SaxenaShourya) for more projects 🐙
+
+We're always looking to improve TaskCraft. If you have any suggestions or find any bugs, please open an issue on our GitHub repository.
+
+If you find TaskCraft helpful, please consider giving it a star ⭐ on GitHub! Your support means a lot to us and helps others discover the project.
+
+<hr/>

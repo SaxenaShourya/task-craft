@@ -1,4 +1,5 @@
 import { Button } from "../ui/button";
+import Link from "next/link";
 
 const CTASection = () => (
     <section id="cta" className="bg-primary text-primary-foreground py-16 px-8 rounded-lg mb-20">
@@ -10,11 +11,13 @@ const CTASection = () => (
           Join thousands of teams already using Task Craft to streamline their
           workflow.
         </p>
-        <Button size="lg" variant="secondary">
-          Start Your Free Trial
-        </Button>
+        <Link href="/login">
+          <Button size="lg" variant="secondary">
+            Start Your Free Trial
+          </Button>
+        </Link>
       </div>
     </section>
   );
 
-  export default CTASection
+export default CTASection;

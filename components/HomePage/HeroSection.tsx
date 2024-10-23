@@ -16,10 +16,12 @@ const HeroSection = () => (
         with our intuitive task management platform.
       </p>
       <div className="flex justify-center space-x-4 mb-16">
-        <Button size="lg" className="flex items-center">
-          <Zap className="mr-2 h-5 w-5" />
-          Start Crafting
-        </Button>
+        <Link href="/login">
+          <Button size="lg" className="flex items-center">
+            <Zap className="mr-2 h-5 w-5" />
+            Start Crafting
+          </Button>
+        </Link>
         <Link href="#features">
           <Button size="lg" variant="outline" className="flex items-center">
           <Info className="mr-2 h-5 w-5" />
