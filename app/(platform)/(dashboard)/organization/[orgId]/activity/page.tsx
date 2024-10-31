@@ -12,7 +12,7 @@ const ActivityPage = async () => {
   const { orgId } = auth();
 
   if (!orgId) {
-    redirect("/select-org");
+    redirect("/create-org");
   }
 
   const organization = await clerkClient().organizations.getOrganization({ organizationId: orgId });

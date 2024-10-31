@@ -24,7 +24,7 @@ const DashboardPage = async () => {
   const { userId, orgId } = auth();
 
   if (!userId || !orgId) {
-    redirect("/select-org");
+    redirect("/create-org");
   }
 
   const organization = await clerkClient().organizations.getOrganization({

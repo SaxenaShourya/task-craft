@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useSignUp, useSignIn } from "@clerk/nextjs";
+import { useSignUp } from "@clerk/nextjs";
 import { useToast } from "@/hooks/use-toast";
 
 import {
@@ -21,7 +21,7 @@ import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import Spinner from "../Spinner";
 import FormError from "../FormError";
-import { FaGithub, FaGoogle } from "react-icons/fa";
+// import { FaGithub, FaGoogle } from "react-icons/fa";
 import {
   IoEyeOffOutline as EyeSlash,
   IoEyeOutline as Eye,
@@ -43,6 +43,8 @@ const signUpSchema = z.object({
 
 type TSignUpSchema = z.infer<typeof signUpSchema>;
 
+ // NOTE:⚠️⚠️⚠️ OAuth sign in functionality is temporarily disabled while we work on fixing implementation issues
+
 const StartStep = ({
   signUp,
   setStep,
@@ -61,41 +63,41 @@ const StartStep = ({
   });
   const [showPassword, setShowPassword] = useState(false);
 
-  const { isLoaded: isSignUpLoaded, signUp: signUpOAuth } = useSignUp();
-  const { isLoaded: isSignInLoaded } = useSignIn();
-  const [isOAuthLoading, setIsOAuthLoading] = useState<"github" | "google" | false>(false);
+  // const { isLoaded: isSignUpLoaded, signUp: signUpOAuth } = useSignUp();
+  // const { isLoaded: isSignInLoaded } = useSignIn();
+  // const [isOAuthLoading, setIsOAuthLoading] = useState<"github" | "google" | false>(false);
 
-  const handleOAuthSignUp = async (
-    strategy: "oauth_github" | "oauth_google"
-  ) => {
-    if (!isSignUpLoaded || !isSignInLoaded) {
-      toast({
-        title: "Error",
-        description: "Authentication is not ready. Please try again.",
-        variant: "destructive",
-      });
-      return;
-    }
-    setIsOAuthLoading(strategy === "oauth_github" ? "github" : "google");
-    try {
-      const response = await signUpOAuth.authenticateWithRedirect({
-        strategy,
-        redirectUrl: "/sso-callback",
-        redirectUrlComplete: "/dashboard",
-      });
-      console.log('OAuth response:', response);
-    } catch (err) {
-      const error = err as { errors?: { message: string }[] };
-      console.log(`Error during ${strategy} sign in:`, error?.errors?.[0]?.message);
-      toast({
-        title: "Sign In Failed",
-        description: error?.errors?.[0]?.message || "An unexpected error occurred. Please try again.",
-        variant: "destructive",
-      });
-    } finally {
-      setIsOAuthLoading(false);
-    }
-  };
+  // const handleOAuthSignUp = async (
+  //   strategy: "oauth_github" | "oauth_google"
+  // ) => {
+  //   if (!isSignUpLoaded || !isSignInLoaded) {
+  //     toast({
+  //       title: "Error",
+  //       description: "Authentication is not ready. Please try again.",
+  //       variant: "destructive",
+  //     });
+  //     return;
+  //   }
+  //   setIsOAuthLoading(strategy === "oauth_github" ? "github" : "google");
+  //   try {
+  //     const response = await signUpOAuth.authenticateWithRedirect({
+  //       strategy,
+  //       redirectUrl: "/sso-callback",
+  //       redirectUrlComplete: "/dashboard",
+  //     });
+  //     console.log('OAuth response:', response);
+  //   } catch (err) {
+  //     const error = err as { errors?: { message: string }[] };
+  //     console.log(`Error during ${strategy} sign in:`, error?.errors?.[0]?.message);
+  //     toast({
+  //       title: "Sign In Failed",
+  //       description: error?.errors?.[0]?.message || "An unexpected error occurred. Please try again.",
+  //       variant: "destructive",
+  //     });
+  //   } finally {
+  //     setIsOAuthLoading(false);
+  //   }
+  // };
 
   const onSubmit = async (data: TSignUpSchema) => {
     try {
@@ -132,7 +134,8 @@ const StartStep = ({
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-4 p-4">
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        {/* NOTE: OAuth buttons temporarily disabled while we work on fixing implementation issues */}
+        {/* <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
           <Button
             size="lg"
             variant="outline"
@@ -177,7 +180,7 @@ const StartStep = ({
               Or continue with
             </span>
           </div>
-        </div>
+        </div> */}
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-3">
           <div className="space-y-1">

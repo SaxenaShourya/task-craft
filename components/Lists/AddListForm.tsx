@@ -104,6 +104,7 @@ const AddListForm = ({ listCount }: { listCount: number }) => {
                 : "cursor-pointer"
             )}
             disabled={listCount >= 4}
+            onClick={() => setIsOpen(true)}
           >
             <Plus className="w-4 h-4 mr-2" />
             Add List

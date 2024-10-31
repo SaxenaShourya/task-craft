@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useSignIn, useSignUp } from "@clerk/nextjs";
+import { useSignIn } from "@clerk/nextjs";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -17,7 +17,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import Spinner from "@/components/Spinner";
-import { FaGithub, FaGoogle } from "react-icons/fa";
+// import { FaGithub, FaGoogle } from "react-icons/fa";
 import ForgotPasswordModal from "@/components/Login/ForgetPasswordModal";
 import FormError from "@/components/FormError";
 import { useToast } from "@/hooks/use-toast";
@@ -45,17 +45,19 @@ const loginSchema = z.object({
 
 type TLoginSchema = z.infer<typeof loginSchema>;
 
+// NOTE:⚠️⚠️⚠️ OAuth sign in functionality is temporarily disabled while we work on fixing implementation issues
+
 const LoginPage = () => {
   const router = useRouter();
   const { toast } = useToast();
 
   const [showPassword, setShowPassword] = useState(false);
   const [isForgotPasswordOpen, setIsForgotPasswordOpen] = useState(false);
-  const [isOAuthLoading, setIsOAuthLoading] = useState<"github" | "google" | false>(false);
+  // const [isOAuthLoading, setIsOAuthLoading] = useState<"github" | "google" | false>(false);
 
   const { isLoaded, signIn, setActive } = useSignIn();
-  const { isLoaded: isSignInLoaded } = useSignIn();
-  const { isLoaded: isSignUpLoaded, signUp: signUpOAuth } = useSignUp();
+  // const { isLoaded: isSignInLoaded } = useSignIn();
+  // const { isLoaded: isSignUpLoaded, signUp: signUpOAuth } = useSignUp();
 
   const {
     register,
@@ -73,38 +75,37 @@ const LoginPage = () => {
     );
   }
 
-  const handleOAuthSignIn = async (
-    strategy: "oauth_github" | "oauth_google"
-  ) => {
-    if (!isSignUpLoaded || !isSignInLoaded) {
-      toast({
-        title: "Error",
-        description: "Authentication is not ready. Please try again.",
-        variant: "destructive",
-      });
-      return;
-    }
-    setIsOAuthLoading(strategy === "oauth_github" ? "github" : "google");
-    try {
-      const response = await signUpOAuth.authenticateWithRedirect({
-        strategy,
-        redirectUrl: "/sso-callback",
-        redirectUrlComplete: "/dashboard",
-      });
-      console.log('OAuth response:', response);
-    } catch (err) {
-      const error = err as { errors?: { message: string }[] };
-      console.log(`Error during ${strategy} sign in:`, error?.errors?.[0]?.message);
-      toast({
-        title: "Sign In Failed",
-        description: error?.errors?.[0]?.message || "An unexpected error occurred. Please try again.",
-        variant: "destructive",
-      });
-    } finally {
-      setIsOAuthLoading(false);
-    }
-  };
-
+  // const handleOAuthSignIn = async (
+  //   strategy: "oauth_github" | "oauth_google"
+  // ) => {
+  //   if (!isSignUpLoaded || !isSignInLoaded) {
+  //     toast({
+  //       title: "Error",
+  //       description: "Authentication is not ready. Please try again.",
+  //       variant: "destructive",
+  //     });
+  //     return;
+  //   }
+  //   setIsOAuthLoading(strategy === "oauth_github" ? "github" : "google");
+  //   try {
+  //     const response = await signUpOAuth.authenticateWithRedirect({
+  //       strategy,
+  //       redirectUrl: "/sso-callback",
+  //       redirectUrlComplete: "/dashboard",
+  //     });
+  //     console.log('OAuth response:', response);
+  //   } catch (err) {
+  //     const error = err as { errors?: { message: string }[] };
+  //     console.log(`Error during ${strategy} sign in:`, error?.errors?.[0]?.message);
+  //     toast({
+  //       title: "Sign In Failed",
+  //       description: error?.errors?.[0]?.message || "An unexpected error occurred. Please try again.",
+  //       variant: "destructive",
+  //     });
+  //   } finally {
+  //     setIsOAuthLoading(false);
+  //   }
+  // };
 
   const onSubmit = async (data: TLoginSchema) => {
     
@@ -149,7 +150,8 @@ const LoginPage = () => {
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-3 !pb-1">
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          {/* NOTE:⚠️⚠️⚠️ OAuth buttons temporarily disabled while we work on fixing implementation issues */}
+          {/* <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <Button
               size="lg"
               variant="outline"
@@ -195,7 +197,7 @@ const LoginPage = () => {
                 Or continue with
               </span>
             </div>
-          </div>
+          </div> */}
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-2">
             <div className="space-y-1">
               <Label htmlFor="email">Email</Label>
