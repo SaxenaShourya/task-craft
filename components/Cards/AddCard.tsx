@@ -137,7 +137,7 @@ const AddCard = ({
             <p className="text-sm text-neutral-700 leading-relaxed">
               You can create up to 5 cards on the free trial.{" "}
               <Link
-                href="https://www.linkedin.com/in/shouryasaxena"
+                href="https://www.linkedin.com/in/saxena-shourya"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-blue-500 hover:underline"

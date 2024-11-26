@@ -50,6 +50,7 @@ Get TaskCraft up and running on your machine:
 ### Prerequisites
 
 Ensure you have the following installed:
+
 - 📦 Node.js and npm
 - 🐘 PostgreSQL (NeonDB or local setup)
 - 🐙 Git
@@ -57,17 +58,20 @@ Ensure you have the following installed:
 ### Step-by-Step Setup
 
 1. **Clone the repository:**
+
    ```bash
    git clone https://github.com/yourusername/taskcraft.git
    ```
 
 2. **Navigate to the project directory:**
+
    ```bash
    cd taskcraft
    ```
 
 3. **Set up environment variables:**
    Create a `.env` file in the root directory and add the following variables:
+
    ```
    NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=your_clerk_publishable_key
    CLERK_SECRET_KEY=your_clerk_secret_key
@@ -76,14 +80,17 @@ Ensure you have the following installed:
    NEXT_PUBLIC_UNSPLASH_ACCESS_KEY=your_unsplash_access_key
    DATABASE_URL="your_neondb_connection_string"
    ```
+
    Replace the placeholder values with your actual credentials.
 
 4. **Install dependencies:**
+
    ```bash
    npm install
    ```
 
 5. **Set up the database:**
+
    ```bash
    npx prisma generate
    npx prisma db push
@@ -155,7 +162,7 @@ TaskCraft is licensed under the MIT License. See the [LICENSE](LICENSE) file for
 ## 📞 Contact & Support
 
 - For feedback and support, email us at saxenashourya000@gmail.com 📧
-- Follow me on [LinkedIn](https://www.linkedin.com/in/shouryasaxena) for updates 🔗
+- Follow me on [LinkedIn](https://www.linkedin.com/in/saxena-shourya) for updates 🔗
 - Check out my [GitHub](https://github.com/SaxenaShourya) for more projects 🐙
 
 We're always looking to improve TaskCraft. If you have any suggestions or find any bugs, please open an issue on our GitHub repository.

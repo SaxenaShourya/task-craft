@@ -38,7 +38,7 @@ const NavBar = () => {
           </Button>
           <Button variant="ghost" asChild>
             <Link
-              href="https://www.linkedin.com/in/shouryasaxena/"
+              href="https://www.linkedin.com/in/saxena-shourya/"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -127,7 +127,7 @@ const Footer = () => (
             <Github className="h-6 w-6" />
           </Link>
           <Link
-            href="https://www.linkedin.com/in/shouryasaxena/"
+            href="https://www.linkedin.com/in/saxena-shourya/"
             target="_blank"
             rel="noopener noreferrer"
             className="text-muted-foreground hover:text-primary transition-colors duration-300"
@@ -140,7 +140,7 @@ const Footer = () => (
         <p className="text-sm text-muted-foreground">
           Crafted with ❤️ by{" "}
           <Link
-            href="https://www.linkedin.com/in/shouryasaxena/"
+            href="https://www.linkedin.com/in/saxena-shourya/"
             target="_blank"
             rel="noopener noreferrer"
             className="font-semibold text-primary hover:underline transition-all duration-300 hover:text-primary/80"

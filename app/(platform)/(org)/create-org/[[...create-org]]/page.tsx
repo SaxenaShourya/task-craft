@@ -53,7 +53,11 @@ const CreateOrgPage = () => {
           {!isLoaded ? (
             <Spinner variant="dark" />
           ) : (
-            <OrganizationList hidePersonal afterSelectOrganizationUrl='/organization/:id' afterCreateOrganizationUrl='/organization/:id' />
+            <OrganizationList
+              hidePersonal
+              afterSelectOrganizationUrl="/organization/:id"
+              afterCreateOrganizationUrl="/organization/:id"
+            />
           )}
         </div>
       </main>
@@ -64,7 +68,7 @@ const CreateOrgPage = () => {
           </p>
           <div className="flex space-x-4">
             <Link
-              href="https://www.linkedin.com/in/shouryasaxena/"
+              href="https://www.linkedin.com/in/saxena-shourya/"
               target="_blank"
               rel="noopener noreferrer"
               className="text-muted-foreground hover:text-primary transition-colors"

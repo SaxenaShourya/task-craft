@@ -6,7 +6,6 @@ import { Suspense } from "react";
 import Spinner from "../Spinner";
 
 const Navbar = () => {
-
   return (
     <nav className="border-b bg-white">
       <div className="flex items-center justify-between p-4">
@@ -21,7 +20,7 @@ const Navbar = () => {
         </div>
         <nav className="hidden md:flex space-x-4">
           <Link
-            href="https://www.linkedin.com/in/shouryasaxena/"
+            href="https://www.linkedin.com/in/saxena-shourya/"
             target="_blank"
             rel="noopener noreferrer"
             className="text-sm text-muted-foreground hover:text-primary transition-colors"

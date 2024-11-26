@@ -1,6 +1,5 @@
 "use client";
 
-
 import React, { useEffect } from "react";
 import { useAuth } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
@@ -15,12 +14,16 @@ const AuthLayout = ({ children }: { children: React.ReactNode }) => {
 
   useEffect(() => {
     if (isLoaded && isSignedIn) {
-      router.push('/dashboard');
+      router.push("/dashboard");
     }
   }, [isSignedIn, isLoaded, router]);
 
   if (!isLoaded) {
-    return <div className="flex justify-center items-center size-full"><Spinner variant="dark" /></div>; 
+    return (
+      <div className="flex justify-center items-center size-full">
+        <Spinner variant="dark" />
+      </div>
+    );
   }
 
   if (isSignedIn) {
@@ -44,7 +47,7 @@ const AuthLayout = ({ children }: { children: React.ReactNode }) => {
             Features
           </Link>
           <Link
-            href="https://www.linkedin.com/in/shouryasaxena/"
+            href="https://www.linkedin.com/in/saxena-shourya/"
             className="text-sm text-muted-foreground hover:text-primary transition-colors"
             target="_blank"
             rel="noopener noreferrer"
@@ -63,7 +66,7 @@ const AuthLayout = ({ children }: { children: React.ReactNode }) => {
           </p>
           <div className="flex space-x-4">
             <Link
-              href="https://www.linkedin.com/in/shouryasaxena/"
+              href="https://www.linkedin.com/in/saxena-shourya/"
               target="_blank"
               rel="noopener noreferrer"
               className="text-muted-foreground hover:text-primary transition-colors"
